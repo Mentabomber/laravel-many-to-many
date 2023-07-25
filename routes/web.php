@@ -34,6 +34,12 @@ Route :: get('/create', [LoggedController :: class, 'create'])
 Route :: post('/store', [LoggedController :: class, 'store'])
     -> middleware(['auth'])
     -> name('project.store');
+Route :: get('/edit/{id}', [LoggedController :: class, 'edit'])
+    -> name('project.edit');
+Route :: put('/update/{id}', [LoggedController :: class, 'update'])
+    -> name('project.update');
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

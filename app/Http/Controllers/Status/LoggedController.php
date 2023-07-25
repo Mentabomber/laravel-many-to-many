@@ -33,4 +33,27 @@ class LoggedController extends Controller
 
         return redirect() -> route('show', $project -> id);
     }
+    public function edit($id) {
+
+        $technology = Technology :: findOrFail($id);
+        $projects = Project :: all();
+
+        return view('logged.edit', compact("technology", "projects"));
+    }
+    public function update(Request $request, $id) {
+
+        $data = $request -> all();
+
+        $technology = Technology :: findOrFail($id);
+        $technology -> update($data);
+        if (array_key_exists('projects', $data)) {
+
+            $technology -> projects() -> sync($data['projects']);
+        } else {
+
+            $technology -> projects() -> detach();
+        }
+
+        return redirect() -> route('show', $technology -> id);
+    }
 }

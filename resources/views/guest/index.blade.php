@@ -8,7 +8,10 @@
         <div class="text-center">
             <ul class="list-unstyled">
                 @foreach ($projects as $project)
-                    <li><a href="{{ route('show', $project->id) }}">{{ $project->title }}</a></li>
+                    <li>
+                        <a href="{{ route('show', $project->id) }}">{{ $project->title }}</a>
+                        <a href="{{ route('project.edit', $project->id) }}"> Edit</a>
+                    </li>
                 @endforeach
             </ul>
 
