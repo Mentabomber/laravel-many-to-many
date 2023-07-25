@@ -25,9 +25,9 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Route::get('/create,' [LoggedController::class, 'create'])
-// -> middleware(['auth'])
-// -> name('project.create');
+Route :: get('/show', [LoggedController :: class, 'show'])
+    -> middleware(['auth'])
+    -> name('project.show');
 Route :: get('/create', [LoggedController :: class, 'create'])
     -> middleware(['auth'])
     -> name('project.create');

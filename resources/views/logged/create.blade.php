@@ -29,7 +29,9 @@
                 <br>
                 <input type="text" name="thumb" id="thumb">
                 <br>
-                <select name="type" id="type">
+                <label for="">type</label>
+                <br>
+                <select name="type_id" id="type_id">
 
                     @foreach ($types as $type)
                         <option value="{{ $type->id }}">
@@ -38,6 +40,19 @@
                     @endforeach
                 </select>
                 <br>
+                <br>
+                <label for="">technology</label>
+                <br>
+                @foreach ($technologies as $technology)
+                    <div class="form-check mx-auto" style="width: 200px">
+                        <input class="form-check-input" type="checkbox" id="flexCheckDefault" name="technologies[]"
+                            value="{{ $technology->id }}">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            {{ $technology->name }}
+                        </label>
+                    </div>
+                @endforeach
+                </select>
 
                 <input class="my-3" type="submit" value="create">
             </form>
