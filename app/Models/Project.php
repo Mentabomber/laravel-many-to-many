@@ -22,7 +22,7 @@ class Project extends Model
         return $this -> belongsTo(Type :: class);
                         // avevo messo hasOne
     }
-    public function technologys() {
+    public function technologies() {
         return $this -> belongsToMany(Technology :: class);
 
     }

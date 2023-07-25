@@ -15,6 +15,16 @@
             <br>
             <span>Project Type:{{ $project->type->name }}</span>
             <br>
+            <span>Technologies:
+                <ul>
+                    @foreach ($project->technologies as $technology)
+                        <li>
+                            {{ $technology->name }}
+                        </li>
+                    @endforeach
+                </ul>
+            </span>
+            <br>
             <br>
             <br>
             <a href="{{ route('index') }}">Back to Projects</a>

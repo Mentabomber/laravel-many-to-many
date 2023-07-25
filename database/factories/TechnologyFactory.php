@@ -17,7 +17,7 @@ class TechnologyFactory extends Factory
     public function definition()
     {
         return [
-            "name" => fake() -> unique() -> randomElement(['primo','secondo','terzo','quarto','quinto','sesto','settimo','ottavo','nono','decimo']),
+            "name" => fake() -> unique() -> randomElement(['first','second','third','fourth','fifth','sixth','seventh','eight','nineth','tenth']),
             "creation_date" => fake() -> dateTime(),
             "developer" => fake() -> name()
         ];

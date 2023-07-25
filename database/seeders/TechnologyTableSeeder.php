@@ -5,6 +5,10 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+use App\Models\Technology;
+use App\Models\Project;
+
+
 class TechnologyTableSeeder extends Seeder
 {
     /**
@@ -14,6 +18,13 @@ class TechnologyTableSeeder extends Seeder
      */
     public function run()
     {
-        Technology :: factory() -> count(10) -> create();
+        $technologies = Technology :: factory() -> count(10) -> create();
+
+        foreach ($technologies as $technology) {
+            $projects = Project :: inRandomOrder() -> limit(rand(0, 5)) -> get();
+
+            $technology -> projects() -> attach($projects);
+        }
+
     }
 }
