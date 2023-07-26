@@ -11,7 +11,7 @@ use App\Models\Technology;
 
 class LoggedController extends Controller
 {
-
+    // PROJECTS
     public function show($id){
 
         $project = Project :: findOrFail($id);
@@ -33,27 +33,36 @@ class LoggedController extends Controller
 
         return redirect() -> route('show', $project -> id);
     }
+    // public function edit($id) {
+
+    //     $technology = Technology :: findOrFail($id);
+    //     $projects = Project :: all();
+
+    //     return view('logged.edit', compact("technology", "projects"));
+    // }
     public function edit($id) {
 
-        $technology = Technology :: findOrFail($id);
-        $projects = Project :: all();
+        $project = Project :: findOrFail($id);
+        $technologies = Technology :: all();
+        $types = Type :: all();
 
-        return view('logged.edit', compact("technology", "projects"));
+        return view('logged.edit', compact("technologies", "project","types"));
     }
     public function update(Request $request, $id) {
 
         $data = $request -> all();
 
-        $technology = Technology :: findOrFail($id);
-        $technology -> update($data);
-        if (array_key_exists('projects', $data)) {
+        $project = Project :: findOrFail($id);
+        $project -> update($data);
+        $project -> technologies() -> sync($data['technologies']);
+        // if (array_key_exists('projects', $data)) {
 
-            $technology -> projects() -> sync($data['projects']);
-        } else {
+        //     $project -> technologies() -> sync($data['technologies']);
+        // } else {
 
-            $technology -> projects() -> detach();
-        }
+        //     $project -> technologies() -> detach();
+        // }
 
-        return redirect() -> route('show', $technology -> id);
+        return redirect() -> route('show', $project -> id);
     }
 }
