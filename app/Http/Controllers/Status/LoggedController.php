@@ -26,7 +26,14 @@ class LoggedController extends Controller
     }
     public function store(Request $request) {
 
-        $data = $request -> all();
+        $data = $request -> validate([
+            "title" => "required|string|min:3|max:64",
+            "description" => "required|string|min:3|max:64",
+            "start_date" => "required|date",
+            "project_manager" => "nullable",
+            "thumb" => "nullable"
+
+        ]);;
 
         $project = Project :: create($data);
         $project -> technologies() -> attach($data['technologies']);
@@ -49,19 +56,27 @@ class LoggedController extends Controller
         return view('logged.edit', compact("technologies", "project","types"));
     }
     public function update(Request $request, $id) {
+        $data = $request -> validate([
+            "title" => "required|string|min:3|max:64",
+            "description" => "required|string|min:3|max:250",
+            "start_date" => "required|date",
+            "project_manager" => "nullable",
+            "thumb" => "nullable",
+            "type_id" => "nullable",
+            "technologies" => "nullable|array"
 
-        $data = $request -> all();
+        ]);;
 
         $project = Project :: findOrFail($id);
         $project -> update($data);
-        $project -> technologies() -> sync($data['technologies']);
-        // if (array_key_exists('projects', $data)) {
+        // $project -> technologies() -> sync($data['technologies']);
+        if (array_key_exists('technologies', $data)) {
 
-        //     $project -> technologies() -> sync($data['technologies']);
-        // } else {
+            $project -> technologies() -> sync($data['technologies']);
+        } else {
 
-        //     $project -> technologies() -> detach();
-        // }
+            $project -> technologies() -> detach();
+        }
 
         return redirect() -> route('show', $project -> id);
     }

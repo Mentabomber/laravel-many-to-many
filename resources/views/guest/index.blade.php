@@ -2,7 +2,7 @@
 @section('content')
     <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
         <div class="text-center d-flex justify-content-center">
-            <h2>Projects</h2> <a href="{{ route('project.create') }}">New</a>
+            <h2>Projects</h2> <a href="{{ route('project.create') }}">New Project</a>
         </div>
 
         <div class="text-center">
