@@ -5,6 +5,10 @@
 
             <span>Title: {{ $project->title }}</span>
             <br>
+            @if ($project->picture)
+                <img src="{{ asset('storage/' . $project->picture) }}" alt="">
+            @endif
+            <br>
             <span>Description:{{ $project->description }}</span>
             <br>
             <span>Start Date:{{ $project->start_date }}</span>
@@ -17,17 +21,30 @@
             <br>
             <span>Technologies:
                 <ul>
-                    @foreach ($project->technologies as $technology)
-                        <li>
-                            {{ $technology->name }}
-                        </li>
-                    @endforeach
+                    @if (count($project->technologies) > 0)
+                        @foreach ($project->technologies as $technology)
+                            <li>
+                                {{ $technology->name }}
+                            </li>
+                        @endforeach
+                    @else
+                        No Technologies
+                    @endif
+
                 </ul>
             </span>
             <br>
             <br>
             <br>
+            @if ($project->picture)
+                <form method="POST"action="{{ route('project.picture.delete', $project->id) }}">
+                    @csrf
+                    @method('DELETE')
+                    <input type="submit" value="CLEAR-PICTURE">
+                </form>
+            @endif
             <a href="{{ route('index') }}">Back to Projects</a>
+
 
         </div>
     </div>

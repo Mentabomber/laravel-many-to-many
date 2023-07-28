@@ -4,7 +4,7 @@
         <div class="text-center">
 
             <h1>Create new Project</h1>
-            <form method="POST" action="{{ route('project.store') }}">
+            <form method="POST" action="{{ route('project.store') }}" enctype='multipart/form-data'>
 
                 @csrf
                 @method('POST')
@@ -53,6 +53,8 @@
                     </div>
                 @endforeach
                 </select>
+                <label for="picture">Picture</label>
+                <input type="file" name="picture" id="picture">
 
                 <input class="my-3" type="submit" value="create">
             </form>

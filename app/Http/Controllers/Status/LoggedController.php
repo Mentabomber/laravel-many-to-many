@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Status;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\Project;
 use App\Models\Type;
@@ -31,9 +32,16 @@ class LoggedController extends Controller
             "description" => "required|string|min:3|max:64",
             "start_date" => "required|date",
             "project_manager" => "nullable",
-            "thumb" => "nullable"
+            "thumb" => "nullable",
+            "technologies" => "nullable|array",
+            "picture" => "nullable",
+
+            "type_id" => "nullable"
 
         ]);;
+
+        $img_path = Storage :: put('uploads', $data['picture']);
+        $data['picture'] = $img_path;
 
         $project = Project :: create($data);
         $project -> technologies() -> attach($data['technologies']);
@@ -63,10 +71,24 @@ class LoggedController extends Controller
             "project_manager" => "nullable",
             "thumb" => "nullable",
             "type_id" => "nullable",
-            "technologies" => "nullable|array"
+            "technologies" => "nullable|array",
+            "picture" => "nullable"
 
         ]);;
+        $project = Project :: findOrFail($id);
+        if(!array_key_exists('picture', $data)){
+            $data['picture'] = $project -> picture;
+        }
+        else{
+            $oldImgPath = $project -> picture;
 
+            if($oldImgPath){
+                Storage :: delete($oldImgPath);
+            }
+
+            $img_path = Storage :: put('uploads', $data['picture']);
+            $data['picture'] = $img_path;
+        }
         $project = Project :: findOrFail($id);
         $project -> update($data);
         // $project -> technologies() -> sync($data['technologies']);
@@ -77,6 +99,18 @@ class LoggedController extends Controller
 
             $project -> technologies() -> detach();
         }
+
+        return redirect() -> route('show', $project -> id);
+    }
+    public function clearPicture($id){
+        $project = Project :: findOrFail($id);
+
+        $oldImgPath = $project -> picture;
+        if ($oldImgPath){
+            Storage :: delete($oldImgPath);
+        }
+        $project -> picture;
+        $project -> save();
 
         return redirect() -> route('show', $project -> id);
     }

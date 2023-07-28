@@ -23,6 +23,7 @@ class ProjectFactory extends Factory
             "start_date" => fake() -> dateTime(),
             "project_manager" => fake() -> name($gender = 'male'|'female'),
             "thumb" => "http://picsum.photos/350/350",
+            "picture" => ""
 
 
         ];

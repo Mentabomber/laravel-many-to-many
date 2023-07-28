@@ -4,11 +4,13 @@
         <div class="text-center">
 
             {{-- <h1>Edit {{ $project->name }}</h1> --}}
-            <form method="POST" action="{{ route('project.update', $project->id) }}">
+            <form method="POST" action="{{ route('project.update', $project->id) }}" enctype='multipart/form-data'>
 
                 @csrf
                 @method('PUT')
 
+                <h1>{{ $project->id }}Update Project</h1>
+                <br>
                 <label for="title">title</label>
                 <br>
                 <input type="text" name="title" id="title" value="{{ $project->title }}">
@@ -41,7 +43,8 @@
                 </select>
                 <br>
                 <br>
-                <label for="">technology</label>
+                <label for="">Technology:
+                </label>
                 <br>
                 @foreach ($technologies as $technology)
                     <div class="form-check mx-auto" style="width: 200px">
@@ -64,7 +67,12 @@
                         </ul>
                     </div>
                 @endif
-                <input class="my-3" type="submit" value="Edit">
+                <br>
+                <label for="picture">Picture</label>
+                <br>
+                <input type="file" name="picture" id="picture" value="{{ $project->picture }}">
+                <br>
+                <input class="my-3" type="submit" value="edit">
             </form>
 
         </div>

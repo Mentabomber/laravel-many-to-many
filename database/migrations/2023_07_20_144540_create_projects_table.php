@@ -21,6 +21,7 @@ return new class extends Migration
             $table->date("start_date");
             $table->string("project_manager");
             $table->string("thumb");
+            $table->string("picture") -> nullable;
 
             $table->timestamps();
         });
