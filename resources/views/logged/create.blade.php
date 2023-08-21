@@ -58,7 +58,7 @@
 
                 <input class="my-3" type="submit" value="create">
             </form>
-
+            <a href="{{ route('index') }}">Back to Projects</a>
         </div>
     </div>
 @endsection

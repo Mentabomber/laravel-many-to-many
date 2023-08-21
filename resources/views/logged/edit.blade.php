@@ -70,10 +70,12 @@
                 <br>
                 <label for="picture">Picture</label>
                 <br>
-                <input type="file" name="picture" id="picture" value="{{ $project->picture }}">
+
+                <input type="file" name="picture" id="picture">
                 <br>
                 <input class="my-3" type="submit" value="edit">
             </form>
+            <a href="{{ route('index') }}">Back to Projects</a>
 
         </div>
     </div>
